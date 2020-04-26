@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const Register = () => {
+import { setAlert } from "../../action/alert";
+import { register } from "../../action/auth";
+
+const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,12 +22,16 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password2 !== password) {
-      console.log("Password dose not match");
+      setAlert("Password dose not match", "danger");
     } else {
-      console.log(formData);
+      register({ name, email, password });
     }
   };
 
+  // if sign up
+  if (isAuthenticated) {
+    return <Redirect to="/deshboard" />;
+  }
   return (
     <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
@@ -37,7 +46,6 @@ const Register = () => {
             name="name"
             value={name}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -47,7 +55,6 @@ const Register = () => {
             name="email"
             value={email}
             onChange={(e) => onChange(e)}
-            required
           />
           <small className="form-text">
             This site uses Gravatar so if you want a profile image, use a
@@ -62,7 +69,6 @@ const Register = () => {
             minLength="6"
             value={password}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <div className="form-group">
@@ -73,7 +79,6 @@ const Register = () => {
             minLength="6"
             value={password2}
             onChange={(e) => onChange(e)}
-            required
           />
         </div>
         <input type="submit" className="btn btn-primary" value="Register" />
@@ -85,4 +90,14 @@ const Register = () => {
   );
 };
 
-export default Register;
+Register.prototype = {
+  setAlert: PropTypes.func.is,
+  register: PropTypes.func.is,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
