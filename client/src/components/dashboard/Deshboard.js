@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getCurrentProfile } from "../../action/profile";
+import { getCurrentProfile, deleteProfile } from "../../action/profile";
 import Spinner from "../layout/Spinner";
 import DeshboardAction from "./DeshboardAction";
+import Experience from "./Experience";
+import Education from "./Education";
 
 const Deshboard = ({
   getCurrentProfile,
   auth: { user },
   profile: { profile, loading },
+  deleteProfile,
 }) => {
   useEffect(() => {
     getCurrentProfile();
@@ -25,7 +28,17 @@ const Deshboard = ({
         <i className="fas fa-user" /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
-        <DeshboardAction />
+        <Fragment>
+          {" "}
+          <DeshboardAction />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
+          <div className="my-2">
+            <button className="btn btn-danger" onClick={() => deleteProfile()}>
+              <i className="fas fa-user-minus"></i> Delete My Account
+            </button>
+          </div>
+        </Fragment>
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
@@ -40,6 +53,7 @@ const Deshboard = ({
 
 Deshboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
 };
@@ -49,4 +63,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Deshboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteProfile })(
+  Deshboard
+);
