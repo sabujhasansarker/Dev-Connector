@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { getCurrentProfile } from "../../action/profile";
 import Spinner from "../layout/Spinner";
+import DeshboardAction from "./DeshboardAction";
 
 const Deshboard = ({
   getCurrentProfile,
@@ -24,7 +25,7 @@ const Deshboard = ({
         <i className="fas fa-user" /> Welcome {user && user.name}
       </p>
       {profile !== null ? (
-        <Fragment>has</Fragment>
+        <DeshboardAction />
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
