@@ -1,9 +1,9 @@
-import React, { Fragment } from "react"
-import { Link } from "react-router-dom"
-import { connect } from "react-redux"
-import PropTypes from "prop-types"
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import { logout } from "../../action/auth"
+import { logout } from "../../action/auth";
 
 const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
   const authLink = (
@@ -15,6 +15,9 @@ const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
         </Link>
       </li>
       <li>
+        <Link to="/posts">Posts</Link>
+      </li>
+      <li>
         <Link to="/profiles">Developers</Link>
       </li>
       <li>
@@ -24,7 +27,7 @@ const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
         </a>
       </li>
     </ul>
-  )
+  );
 
   const gestLink = (
     <ul>
@@ -38,7 +41,7 @@ const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
         <Link to="/login">Login</Link>
       </li>
     </ul>
-  )
+  );
 
   return (
     <nav className="navbar bg-dark">
@@ -49,16 +52,16 @@ const Navbar = ({ auth: { loading, isAuthenticated }, logout }) => {
       </h1>
       {!loading && <Fragment>{isAuthenticated ? authLink : gestLink}</Fragment>}
     </nav>
-  )
-}
+  );
+};
 
 Navbar.prototype = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.array,
-}
+};
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-})
+});
 
-export default connect(mapStateToProps, { logout })(Navbar)
+export default connect(mapStateToProps, { logout })(Navbar);
