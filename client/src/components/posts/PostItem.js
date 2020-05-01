@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 
-import { addLike, removeLike } from "../../action/post";
+import { addLike, removeLike, deletePost } from "../../action/post";
 
 const PostItem = ({
   auth,
   addLike,
   removeLike,
+  deletePost,
+  id,
   post: { _id, name, avatar, user, likes, comments, date, text },
 }) => {
   return (
@@ -26,7 +28,7 @@ const PostItem = ({
         </p>
         <button
           type="button"
-          onClick={(e) => addLike(_id)}
+          onClick={(e) => addLike(id)}
           className="btn btn-light"
         >
           <i className="fas fa-thumbs-up"></i>
@@ -34,16 +36,20 @@ const PostItem = ({
         </button>
         <button
           type="button"
-          onClick={(e) => removeLike(_id)}
+          onClick={(e) => removeLike(id)}
           className="btn btn-light"
         >
           <i className="fas fa-thumbs-down"></i>
         </button>
-        <Link to={`/post/${_id}`} className="btn btn-primary">
+        <Link to={`/post/${id}`} className="btn btn-primary">
           Discussion <span className="comment-count">{comments.length}</span>
         </Link>
-        {auth._id === user && (
-          <button type="button" className="btn btn-danger">
+        {auth.user && auth.user._id === user && (
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={(e) => deletePost(id)}
+          >
             <i className="fas fa-times"></i>
           </button>
         )}
@@ -53,7 +59,9 @@ const PostItem = ({
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth.user,
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addLike, removeLike })(PostItem);
+export default connect(mapStateToProps, { addLike, removeLike, deletePost })(
+  PostItem
+);
