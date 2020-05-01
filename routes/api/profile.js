@@ -87,8 +87,7 @@ router.post(
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
-      console.log(req.user.id);
-      console.log(profileFields);
+
       //   if profle exits
       if (profile) {
         profile = await Profile.findOneAndUpdate(

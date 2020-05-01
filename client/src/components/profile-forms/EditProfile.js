@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { createProfile, getCurrentProfile } from "../../action/profile";
 
@@ -61,7 +61,7 @@ const EditProfile = ({
         linkedin: loading || !profile.social ? "" : profile.social.linkedin,
       });
     }
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const onchange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

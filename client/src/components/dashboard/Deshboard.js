@@ -17,7 +17,7 @@ const Deshboard = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, []);
+  }, [getCurrentProfile]);
 
   return loading && profile == null ? (
     <Spinner />
