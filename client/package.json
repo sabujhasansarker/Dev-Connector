@@ -40,7 +40,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": {
-    "target": "http://[::1]:5000"
-  }
+  "proxy": "http://localhost:5000"
 }
