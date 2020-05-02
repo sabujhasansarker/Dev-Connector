@@ -61,10 +61,11 @@ const EditProfile = ({
         linkedin: loading || !profile.social ? "" : profile.social.linkedin,
       });
     }
-  }, [loading, getCurrentProfile, profile]);
+  }, [loading, getCurrentProfile]);
 
-  const onchange = (e) =>
+  const onchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const onsubmit = (e) => {
     e.preventDefault();
     createProfile(formData, history, true);
