@@ -1,7 +1,7 @@
 # Dev Connector  [<img  src="https://img.shields.io/badge/%20Dev%20Connactor -Live-brightgreen"/>](https://dev-connected-mern.herokuapp.com/)
 > social media for developers 
 
-This is a MERN stack appication . It's small social networking application includes authentication, profiles and forum posts.
+This is a MERN stack appication follow Traversy Media MERN Project . It's small social networking application includes authentication, profiles and forum posts.
 
 # Changes to GitHub API authentication
 
